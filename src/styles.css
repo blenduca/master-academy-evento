@@ -1262,3 +1262,75 @@ body .text-green--ink { color: var(--green-dark); }
   .hero__countdown-text { font-size: 0.76rem; }
   .diagnostic-bar { grid-template-columns: 80px 1fr auto; }
 }
+
+/* ============================================================
+   DISCOVER INTRO
+   ============================================================ */
+.discover__intro {
+  max-width: 780px;
+  margin: 1.4rem auto 0;
+  text-align: center;
+  color: var(--body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.discover__intro strong { color: var(--green); }
+
+/* ============================================================
+   FORMULÁRIO DE INSCRIÇÃO
+   ============================================================ */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 480px;
+  margin: 2rem auto 0;
+}
+.signup-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: left;
+}
+.signup-form__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--on-dark-soft);
+  text-transform: uppercase;
+}
+.signup-form__input {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  font-size: 1rem;
+  color: var(--white);
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+}
+.signup-form__input::placeholder { color: rgba(255,255,255,0.35); }
+.signup-form__input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(55, 199, 8, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+}
+.signup-form__submit {
+  margin-top: 0.4rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.signup-form__submit--loading {
+  opacity: 0.75;
+  cursor: not-allowed;
+  animation: none;
+}
+@media (max-width: 480px) {
+  .signup-form { max-width: 100%; }
+}

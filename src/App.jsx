@@ -6,7 +6,7 @@ import {
 } from './Icons.jsx'
 
 const CTA_URL = '#inscricao'
-const EVENT_DATE = '2026-07-30T20:30:00' // 30 jul · 20h30
+const EVENT_DATE = '2026-07-30T19:30:00' // 30 jul · 19h30
 
 /* Resolve caminhos de /public respeitando o base do Vite (subpasta no
    GitHub Pages). Em dev BASE_URL é '/', no build é '/master-academy-evento/'. */
@@ -92,7 +92,7 @@ function Navbar() {
           <img src={asset('logo-master.png')} alt="Master Academy Agro" className="nav__logo" />
         </a>
         <div className="nav__right">
-          <span className="nav__date"><Calendar /> 30 jul · 20h30</span>
+          <span className="nav__date"><Calendar /> 30 jul · 19h30</span>
           <a href={CTA_URL} className="btn-secondary">Garantir vaga</a>
         </div>
       </div>
@@ -121,7 +121,7 @@ function Hero() {
 
       <div className="container hero__content">
         <div className="hero__badges reveal">
-          <span className="badge badge--accent"><Calendar /> 30 JUL · 20H30</span>
+          <span className="badge badge--accent"><Calendar /> 30 JUL · 19H30</span>
           <span className="badge"><Wifi /> Online e grátis</span>
         </div>
 
@@ -155,7 +155,7 @@ function Hero() {
 
         <ul className="hero__meta reveal">
           <li><Calendar /> 30 de julho</li>
-          <li><Clock /> 20h30</li>
+          <li><Clock /> 19h30</li>
           <li><Wifi /> Via YouTube</li>
           <li><Tag /> Gratuito</li>
         </ul>
@@ -212,6 +212,12 @@ function Discover() {
         <div className="section-head section-head--center reveal">
           <span className="eyebrow">O que você vai descobrir</span>
           <h2 className="h2">No dia 30, você não ouve teoria. Você diagnostica.</h2>
+          <p className="lead discover__intro reveal">
+            Por isso, no dia 30 de julho, às 19h30, vamos realizar uma palestra gratuita e apresentar
+            a ferramenta de <strong>Diagnóstico Tributário Rural</strong>. Em poucos minutos, você vai
+            responder algumas perguntas e descobrir onde pode estar pagando imposto além do necessário
+            na sua propriedade rural.
+          </p>
         </div>
         <div className="features-grid">
           {items.map((it, i) => (
@@ -403,7 +409,7 @@ function Faq() {
   const faqs = [
     { q: 'Não sou contador. É pra mim?', a: 'É feito pra você — não pro contador.' },
     { q: 'É pago?', a: 'Não. 100% grátis e online.' },
-    { q: 'Quanto dura?', a: 'Uma noite, a partir das 19h30.' },
+    { q: 'Quanto dura?', a: 'Uma noite, a partir das 19h30. Acesse com antecedência.' },
     { q: 'Vai ter oferta?', a: 'No fim, uma condição especial só pra quem estiver ao vivo.' },
   ]
   return (
@@ -429,27 +435,115 @@ function Faq() {
   )
 }
 
+const WHATSAPP_URL = 'https://chat.whatsapp.com/LFyrAZT27T6EwdLyr2C3Rf?s=sw&p=a&ilr=0&amv=0'
+
 function FinalCta() {
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({ nome: '', whatsapp: '' })
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!form.nome.trim() || !form.whatsapp.trim()) return
+    setLoading(true)
+    // Simula envio e redireciona para o grupo de WhatsApp
+    setTimeout(() => {
+      setLoading(false)
+      setSubmitted(true)
+      window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer')
+    }, 800)
+  }
+
   return (
     <section className="section section--cta" id="inscricao">
       <div className="container">
         <div className="final-cta reveal">
-          <span className="eyebrow">Fechamento</span>
-          <h2 className="h2">
-            Quem se prepara, ganha.<br />
-            <span className="text-green">Quem fica parado, paga mais.</span>
-          </h2>
-          <a href={CTA_URL} className="btn-primary btn-primary--xl btn-primary--pulse">
-            Quero minha vaga no Super Evento <ArrowRight />
-          </a>
-          <ul className="final-cta__perks">
-            <li><Check /> Vaga garantida</li>
-            <li><Check /> Comunidade no WhatsApp</li>
-            <li><Check /> Ferramenta exclusiva</li>
-          </ul>
-          <p className="final-cta__hint">
-            30 jul · 20h30 · grátis · via YouTube · <strong>vagas limitadas.</strong>
-          </p>
+          {submitted ? (
+            <>
+              <span className="eyebrow">Inscrição confirmada 🎉</span>
+              <h2 className="h2">
+                Vaga garantida!<br />
+                <span className="text-green">Você já pode entrar no grupo.</span>
+              </h2>
+              <p className="final-cta__hint" style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>
+                Se a aba do WhatsApp não abriu,{' '}
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-green">
+                  clique aqui para entrar no grupo
+                </a>.
+              </p>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary btn-primary--xl"
+              >
+                <Whatsapp /> Entrar no grupo do WhatsApp
+              </a>
+              <ul className="final-cta__perks">
+                <li><Check /> Vaga confirmada</li>
+                <li><Check /> Acesso ao grupo exclusivo</li>
+                <li><Check /> Diagnóstico Tributário Rural ao vivo</li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <span className="eyebrow">Garanta sua vaga</span>
+              <h2 className="h2">
+                Quem se prepara, ganha.<br />
+                <span className="text-green">Quem fica parado, paga mais.</span>
+              </h2>
+              <form className="signup-form" onSubmit={handleSubmit} id="form-inscricao" noValidate>
+                <div className="signup-form__field">
+                  <label htmlFor="nome" className="signup-form__label">Seu nome</label>
+                  <input
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    className="signup-form__input"
+                    placeholder="Como podemos te chamar?"
+                    value={form.nome}
+                    onChange={handleChange}
+                    required
+                    autoComplete="name"
+                  />
+                </div>
+                <div className="signup-form__field">
+                  <label htmlFor="whatsapp" className="signup-form__label">WhatsApp (com DDD)</label>
+                  <input
+                    id="whatsapp"
+                    name="whatsapp"
+                    type="tel"
+                    className="signup-form__input"
+                    placeholder="(99) 99999-9999"
+                    value={form.whatsapp}
+                    onChange={handleChange}
+                    required
+                    autoComplete="tel"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  id="btn-quero-minha-vaga"
+                  className={`btn-primary btn-primary--xl btn-primary--pulse signup-form__submit ${loading ? 'signup-form__submit--loading' : ''}`}
+                  disabled={loading}
+                >
+                  {loading ? 'Confirmando...' : <><span>Quero Minha Vaga</span> <ArrowRight /></>}
+                </button>
+              </form>
+              <ul className="final-cta__perks">
+                <li><Check /> Vaga garantida</li>
+                <li><Check /> Comunidade no WhatsApp</li>
+                <li><Check /> Ferramenta exclusiva</li>
+              </ul>
+              <p className="final-cta__hint">
+                30 jul · 19h30 · grátis · via YouTube · <strong>vagas limitadas.</strong>
+              </p>
+            </>
+          )}
         </div>
       </div>
     </section>
@@ -470,7 +564,7 @@ function Footer() {
         <div className="footer__cols">
           <div className="footer__col">
             <span className="footer__col-title">Evento</span>
-            <span><Calendar /> 30 jul · 20h30</span>
+            <span><Calendar /> 30 jul · 19h30</span>
             <span><Wifi /> Via YouTube · gratuito</span>
           </div>
           <div className="footer__col">
@@ -499,7 +593,7 @@ function StickyCta() {
     <div className={`sticky-cta ${show ? 'sticky-cta--show' : ''}`}>
       <div className="sticky-cta__info">
         <strong>Super Evento · 30 jul</strong>
-        <span>20h30 · YouTube · grátis</span>
+        <span>19h30 · YouTube · grátis</span>
       </div>
       <a href={CTA_URL} className="btn-primary sticky-cta__btn">
         Quero minha vaga <ArrowRight />
