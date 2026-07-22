@@ -436,6 +436,19 @@ function Faq() {
 }
 
 const WHATSAPP_URL = 'https://chat.whatsapp.com/LFyrAZT27T6EwdLyr2C3Rf?s=sw&p=a&ilr=0&amv=0'
+const WEBHOOK_URL = 'https://automacao.bagents.cloud/webhook/3de63e10-5469-464b-938f-af8f476445c8'
+
+/* Coleta os parâmetros UTM presentes na URL atual. */
+function getUtmParams() {
+  const params = new URLSearchParams(window.location.search)
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+  const utms = {}
+  utmKeys.forEach((key) => {
+    const val = params.get(key)
+    if (val) utms[key] = val
+  })
+  return utms
+}
 
 function FinalCta() {
   const [submitted, setSubmitted] = useState(false)
@@ -446,16 +459,32 @@ function FinalCta() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.nome.trim() || !form.whatsapp.trim()) return
     setLoading(true)
-    // Simula envio e redireciona para o grupo de WhatsApp
-    setTimeout(() => {
-      setLoading(false)
-      setSubmitted(true)
-      window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer')
-    }, 800)
+
+    const payload = {
+      nome: form.nome.trim(),
+      whatsapp: form.whatsapp.trim(),
+      ...getUtmParams(),
+      page_url: window.location.href,
+      submitted_at: new Date().toISOString(),
+    }
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } catch (_err) {
+      // Falha silenciosa — o usuário não é bloqueado se o webhook falhar
+    }
+
+    setLoading(false)
+    setSubmitted(true)
+    window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer')
   }
 
   return (
