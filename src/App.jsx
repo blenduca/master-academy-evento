@@ -484,7 +484,19 @@ function FinalCta() {
     }
 
     setLoading(false)
+    // Apenas exibe a tela de obrigado — NÃO abre o WhatsApp automaticamente.
+    // O usuário precisa clicar no botão "Entrar no grupo" para acionar o evento
+    // de conversão que a Meta usa para otimização.
     setSubmitted(true)
+  }
+
+  // Handler do botão "Entrar no grupo do WhatsApp".
+  // Dispara o evento de conversão para a Meta e então abre o link.
+  const handleWhatsappClick = () => {
+    // Dispara o evento de conversão para o Meta Pixel (Lead / Contact)
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead')
+    }
     window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer')
   }
 
@@ -497,22 +509,16 @@ function FinalCta() {
               <span className="eyebrow">Inscrição confirmada 🎉</span>
               <h2 className="h2">
                 Vaga garantida!<br />
-                <span className="text-green">Você já pode entrar no grupo.</span>
+                <span className="text-green">Clique abaixo para entrar no grupo.</span>
               </h2>
-              <p className="final-cta__hint" style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>
-                Se a aba do WhatsApp não abriu,{' '}
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-green">
-                  clique aqui para entrar no grupo
-                </a>.
-              </p>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                id="btn-entrar-grupo-whatsapp"
+                onClick={handleWhatsappClick}
                 className="btn-primary btn-primary--xl"
+                type="button"
               >
                 <Whatsapp /> Entrar no grupo do WhatsApp
-              </a>
+              </button>
               <ul className="final-cta__perks">
                 <li><Check /> Vaga confirmada</li>
                 <li><Check /> Acesso ao grupo exclusivo</li>
