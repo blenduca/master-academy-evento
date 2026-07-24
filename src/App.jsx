@@ -126,7 +126,7 @@ function Hero() {
         </div>
 
         <h1 className="hero__headline reveal">
-          Descubra onde a sua propriedade rural <span>paga imposto a mais.</span>
+          Descubra se a sua propriedade rural <span>está pagando mais imposto do que deveria.</span>
           <span className="hero__headline-sub">A Reforma já chegou na sua propriedade.</span>
         </h1>
 
@@ -215,8 +215,8 @@ function Discover() {
           <p className="lead discover__intro reveal">
             Por isso, no dia 30 de julho, às 19h30, vamos realizar uma palestra gratuita e apresentar
             a ferramenta de <strong>Diagnóstico Tributário Rural</strong>. Em poucos minutos, você vai
-            responder algumas perguntas e descobrir onde pode estar pagando imposto além do necessário
-            na sua propriedade rural.
+            responder algumas perguntas e descobrir se a sua propriedade está pagando mais imposto do
+            que deveria e conhecer oportunidades de planejamento tributário para a sua realidade.
           </p>
         </div>
         <div className="features-grid">
@@ -236,7 +236,7 @@ function Discover() {
 
 function Tool() {
   const reveals = [
-    { icon: <TrendingDown />, text: 'Onde há imposto pago a mais hoje' },
+    { icon: <TrendingDown />, text: 'Se a sua propriedade está pagando mais imposto do que deveria.' },
     { icon: <Target />, text: 'O enquadramento ideal pro seu caso' },
     { icon: <FileSearch />, text: 'Um plano claro pra transição da Reforma' },
   ]
@@ -248,8 +248,9 @@ function Tool() {
             <span className="label-pill">Entregável exclusivo</span>
             <h3 className="h3 text-green">O Diagnóstico Tributário Rural</h3>
             <p className="tool-block__hook">
-              A ferramenta exclusiva — só aqui. Em minutos, ela mostra onde tem
-              imposto sobrando no seu caso. Você faz o seu ao vivo, de graça.
+              A ferramenta exclusiva — só aqui. Em poucos minutos, ela analisa a sua atividade rural
+              e mostra se a sua propriedade está pagando mais imposto do que deveria, apresentando
+              oportunidades de planejamento tributário. Você faz o seu ao vivo, de graça.
             </p>
             <ul className="tool-reveals">
               {reveals.map((r, i) => (
